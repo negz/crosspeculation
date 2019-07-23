@@ -1,0 +1,15 @@
+---
+apiVersion: core.crossplane.io/v1alpha1
+kind: ResourceClass
+metadata:
+  name: cloudsqlinstance
+  namespace: crossplane-system
+parameters:
+  tier: db-n1-standard-1
+  region: us-west2
+  storageType: PD_SSD
+provisioner: cloudsqlinstance.database.gcp.crossplane.io/v1alpha1
+providerRef:
+  name: experimental
+  namespace: crossplane-system
+reclaimPolicy: Delete

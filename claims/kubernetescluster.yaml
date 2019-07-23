@@ -1,0 +1,13 @@
+---
+apiVersion: compute.crossplane.io/v1alpha1
+kind: KubernetesCluster
+metadata:
+  name: kubernetescluster
+  labels:
+    app: wordpress
+spec:
+  writeConnectionSecretToRef:
+    name: kubernetescluster
+  classRef:
+    name: gkecluster
+    namespace: crossplane-system

@@ -1,0 +1,12 @@
+---
+apiVersion: gcp.crossplane.io/v1alpha1
+kind: Provider
+metadata:
+  namespace: crossplane-system
+  name: experimental
+spec:
+  credentialsSecretRef:
+    name: experimental
+    key: credentials.json
+  projectID: PROJECT_ID
+
