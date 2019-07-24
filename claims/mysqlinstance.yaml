@@ -2,13 +2,21 @@
 apiVersion: database.crossplane.io/v1alpha1
 kind: MySQLInstance
 metadata:
-  name: mysqlinstance
+  name: experimental
+  namespace: default
   labels:
     app: wordpress
 spec:
   engineVersion: "5.7"
-  writeConnectionSecretToRef:
-    name: mysqlinstance
   classRef:
+    apiVersion: database.gcp.crossplane.io/v1alpha1
+    kind: CloudSQLInstanceClass
     name: cloudsqlinstance
-    namespace: crossplane-system
+  connectionRef:
+    apiVersion: gcp.crossplane.io/v1alpha1
+    kind: Connection
+    name: experimental
+  providerRef:
+    apiVersion: gcp.crossplane.io/v1alpha1
+    kind: Provider
+    name: experimental

@@ -1,0 +1,15 @@
+---
+apiVersion: gcp.crossplane.io/v1alpha1
+kind: Connection
+metadata:
+  name: experimental
+# Strategies define how connectivity is established between managed resources.
+strategies:
+- colocate
+# The below fields are optional, and only apply when the colocate strategy is
+# enabled. If they are omitted we create (or select) and set sensible defaults.
+colocation:
+  networkRef: 
+  - name: experimental
+  regionRef:
+  - name: us-central1

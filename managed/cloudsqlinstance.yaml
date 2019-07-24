@@ -1,0 +1,25 @@
+---
+apiVersion: database.gcp.crossplane.io/v1alpha1
+kind: CloudSQLInstance
+metadata:
+  name: experimental
+spec:
+  providerRef:
+    name: experimental
+  reclaimPolicy: Delete
+  tier: db-n1-standard-1
+  storageType: PD_SSD
+  ipConfiguration:
+    ipv4Enabled: true
+    requireSsl: false
+    # Whitelists _public_ IP ranges to connect.
+    authorizedNetworks:
+    - name: coolpublicidr
+      value: 73.169.0.0/16
+      expirationTime: 2020-11-15T16:19:00.094Z
+    # Allows access to the CloudSQL instance from this GCP VPC network
+    privateNetworkRef:
+    - name: experimental
+  # This is actually a zone, but named 'locationPreference' in the GCP API.
+  locationPreferenceRef:
+  - name: us-central1-a

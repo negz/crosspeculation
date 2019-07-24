@@ -1,0 +1,49 @@
+---
+apiVersion: storage.crossplane.io/v1alpha1
+kind: MySQLInstanceUsage
+metadata:
+  name: experimental
+  namespace: default
+spec:
+  claimRef:
+    apiVersion: storage.crossplane.io/v1alpha1
+    kind: MySQLInstance
+    name: experimental
+  publish:
+    service:
+      name: experimental
+      targetTemplate: "{{ .instance.status.endpoint }}"
+    secret:
+      name: experimental
+      dataTemplate:
+        config.json: |
+          {
+              "host": "experimental.default.svc.cluster.local",
+              "port": "{{ .instance.status.port }}",
+              "user": "{{ .user.spec.name }}
+              "password": "{{ .user.secret.password }}"
+          }
+    configMap:
+      name: experimental
+      dataTemplate:
+        url: "postgres://{{ .instance.status.endpoint }}:{{ .instance.status.port }}"
+        username: "{{ .user.spec.name }}"
+status:
+  publishedRefs:
+  - apiVersion: v1
+    kind: Service
+    namespace: default
+    name: experimental
+  - apiVersion: v1
+    kind: Secret
+    namespace: default
+    name: experimental
+  - apiVersion: v1
+    kind: ConfigMap
+    namespace: default
+    name: experimental
+  conditions:
+  - type: Published
+    status: "True"
+    lastTransitionTime: "1970-01-01 00:00:01"
+    reason: All connections published.

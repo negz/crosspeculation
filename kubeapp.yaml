@@ -3,6 +3,7 @@ apiVersion: workload.crossplane.io/v1alpha1
 kind: KubernetesApplication
 metadata:
   name: wordpress
+  namespace: default
   labels:
     app: wordpress
 spec:
@@ -31,7 +32,7 @@ spec:
         app: wordpress
     spec:
       secrets:
-      - name: mysqlinstance
+      - name: experimental
       template:
         apiVersion: apps/v1
         kind: Deployment

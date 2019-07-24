@@ -1,0 +1,37 @@
+---
+apiVersion: compute.gcp.crossplane.io/v1alpha1
+kind: GKECluster
+metadata:
+  name: experimental
+spec:
+  providerRef:
+    name: experimental
+  reclaimPolicy: Delete
+  machineType: n1-standard-2
+  numNodes: 3
+  zoneRef:
+  - name: us-central1-b
+  # This is actually zones, but is named 'locations' in the GCP API.
+  locationRefs:
+  - name: us-central1-a
+  - name: us-central1-b
+  - name: us-central1-c
+  ipAllocationPolicy:
+   useIpAliases: true
+   subnetworkRef:
+   - name: nodesubnetwork
+   clusterSecondaryRangeRef:
+   - name: podsubnetwork
+   servicesSecondaryRangeRef:
+   - name: servicesubnetwork
+  # The below network and subnetwork references are the network and subnetwork
+  # 'to which the cluster is connected'. I'm guessing GKE control nodes live in
+  # their own VPC and are connected to ours, like CloudSQL.
+  # The GKE API supports providing a network name and a subnetwork name. My
+  # guess is that subnet names are unique only within their network. If we model
+  # the relationship between network and subnetwork then setting a subnetwork
+  # would imply the network.
+  networkRef:
+  - name: experimental
+  subnetworkRef:
+  - name: us-central1

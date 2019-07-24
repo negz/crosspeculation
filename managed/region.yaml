@@ -1,0 +1,12 @@
+---
+# The GCP API models regions, but they are read only. This means we can't CRUD
+# this resource kind, but can only read it.
+apiVersion: gcp.crossplane.io/v1alpha1
+kind: Region
+metadata:
+  name: us-central1
+status:
+  status: UP
+  zoneRefs:
+  - name: us-central1-a
+  - name: australia-southeast1-a

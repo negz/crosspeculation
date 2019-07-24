@@ -1,0 +1,8 @@
+---
+apiVersion: gcp.crossplane.io/v1alpha1
+kind: Subnetwork
+metadata:
+  name: us-central1
+spec:
+  networkRef:
+  - name: experimental

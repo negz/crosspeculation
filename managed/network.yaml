@@ -1,0 +1,11 @@
+---
+apiVersion: gcp.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  name: experimental
+status:
+  regionRef:
+  - name: us-central1
+  subnetworkRefs:
+  - name: us-central1  # Google subnet names are unique by region, not globally.
+  - name: australia-southeast1

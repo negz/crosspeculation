@@ -3,10 +3,9 @@ apiVersion: gcp.crossplane.io/v1alpha1
 kind: Provider
 metadata:
   namespace: crossplane-system
-  name: experimental
 spec:
   credentialsSecretRef:
+    namespace: default
     name: experimental
     key: credentials.json
-  projectID: PROJECT_ID
-
+  projectID: long-disk-191221
